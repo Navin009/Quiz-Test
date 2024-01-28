@@ -9,7 +9,6 @@ if (isset($_SESSION['test_ongoing']))
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Online Test</title>
-	<link rel="icon" type="image/png" href="admin/assets/img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
@@ -25,7 +24,7 @@ if (isset($_SESSION['test_ongoing']))
 		.logo-style {
 			font-family: 'Satisfy';
 			font-weight: bold;
-			font-size: 2rem;
+			font-size: 2rem;	
 			color: #1f1f1f;
 		}
 	</style>
