@@ -80,7 +80,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Student Test Credentials</a>
+            <a class="navbar-brand" href="#pablo">User Test Credentials</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -100,7 +100,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8">
-                    <h5 class="title">Students Test Credentials</h5>
+                    <h5 class="title">User Test Credentials</h5>
                   </div>
                 <div class="col-md-4">
                     <button class="btn btn-primary btn-block btn-round" onclick="completed()" style="margin-top:0px;width:100px !important;float:right !important;">Print</button>
@@ -116,7 +116,7 @@
                             SERIAL ID
                         </th>
                         <th>
-                            ROLL NUMBER
+                            ARMY NUMBER
                         </th>
                         <th>
                             Password

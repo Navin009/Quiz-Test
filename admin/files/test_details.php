@@ -4,6 +4,8 @@ if(!isset($_SESSION["user_id"]))
   header("Location:../index.php");
 ?>
 <?php
+  error_reporting(E_ALL ^ E_DEPRECATED);
+
   include '../../database/config.php';
 
   require_once('../assets/vendor/excel_reader2.php');

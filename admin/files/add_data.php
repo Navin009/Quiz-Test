@@ -113,7 +113,7 @@ if(!isset($_SESSION["user_id"]))
 
                         <div class="form-group" style="margin-top:10px;">
                             <label>User Army number</label>
-                            <input type="text" class="form-control" id="extra_roll_number" name="site_name" placeholder="Student Army number"/>
+                            <input type="text" class="form-control" id="extra_roll_number" name="site_name" placeholder="User Army number"/>
                             <span id = "extra_roll_error" class="error text-danger"></span>
                         </div>
                     </div>
