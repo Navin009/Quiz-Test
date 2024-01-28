@@ -64,16 +64,16 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8">
-                    <h5 class="title">All Class and Students Data</h5>
+                    <h5 class="title">All Batch and User Data</h5>
                   </div>
                   <div class="col-md-2">
                     <select id="options" name="options" class="btn-round" required style="width:100%;">
-                        <option id="" selected="true" value="" disabled="disabled">Select class</option>
+                        <option id="" selected="true" value="" disabled="disabled">Select Batch</option>
                        
                     </select>
                   </div>
                   <div class="col-md-2">
-                    <button onclick = 'populateTable()' class="btn btn-primary btn-block btn-round" style="margin-top:0px;width:100px !important;float:right !important; onclick='getStudentsFromClass()' ">FIND</button>    
+                    <button onclick = 'populateTable()' class="btn btn-primary btn-block btn-round" style="margin-top:0px;width:100px !important;float:right !important;" onclick='getStudentsFromClass()'>FIND</button>    
                   </div>
                 </div>  
               </div>
@@ -86,7 +86,7 @@
                   <thead>
                       <tr>
                           <th data-field= "id">ID</th>
-                          <th data-field="rollno">Roll Number</th>
+                          <th data-field="rollno">Army Number</th>
                       </tr>
                   </thead>
               </table>

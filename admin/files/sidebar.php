@@ -4,8 +4,8 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 ?>
 <div class="sidebar" data-color="orange">
     <div class="logo" style="padding:unset;">
-      <a href="dashboard.php" class="simple-text logo-mini" style="width:100px;padding-left:10px;">
-          <h5>OEBRC<h5>
+      <a href="dashboard.php" class="simple-text logo-mini" style="width:200px;padding-left:10px;">
+          <h5>Admin Panel<h5>
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -19,7 +19,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         <li class="<?=($activePage=='add_data')? 'active': ''; ?>">
           <a href="./add_data.php">
             <i class="now-ui-icons business_badge"></i>
-            <p>Add Class / Student</p>
+            <p>Add Batch / User</p>
           </a>
         </li>
         <li class="<?=($activePage=='statistics' || $activePage=='test_stats' || $activePage=='test_question_stats')? 'active': ''; ?>">

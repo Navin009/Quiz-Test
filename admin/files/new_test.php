@@ -168,7 +168,7 @@ if(isset($_POST['new_test'])) {
                             </div>
                             <div class="col-md-6">
                                 <select id="options" name="test_class" class="btn-round" required style="width:100%;">
-                                  <option selected="true" value="" disabled="disabled">Select class for test</option>
+                                  <option selected="true" value="" disabled="disabled">Select Batch for test</option>
                                   <?php
 
                                       $sql = "select * from classes";
