@@ -5,7 +5,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 <div class="sidebar" data-color="orange">
     <div class="logo" style="padding:unset;">
       <a href="dashboard.php" class="simple-text logo-mini" style="width:100px;padding-left:10px;">
-          <img src="../assets/img/logo.png"/>
+          <h5>OEBRC<h5>
         </a>
     </div>
     <div class="sidebar-wrapper">
