@@ -1,9 +1,9 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['student_details']))
-        header("Location: ../index.php"); 
-    if(isset($_SESSION['test_ongoing']))
-        header("Location: quiz.php"); 
+session_start();
+if (!isset($_SESSION['student_details']))
+    header("Location: ../index.php");
+if (isset($_SESSION['test_ongoing']))
+    header("Location: quiz.php");
 ?>
 <html>
 
@@ -55,7 +55,7 @@
                 <!-- Header Icon mobile -->
                 <div class="header-icons-mobile">
                     <a href="#" class="header-wrapicon1 dis-block">
-                        <img src="../images/icons/logout.png" class="header-icon1" alt="ICON" onclick = 'logout()'>
+                        <img src="../images/icons/logout.png" class="header-icon1" alt="ICON" onclick='logout()'>
                     </a>
                 </div>
             </div>
@@ -72,21 +72,21 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-12" id="row" style="display:none;">
-                                                <div class="card" style="background: #ededed;margin:20px 10px 0px 10px;">
-                                                    <div class="card-body">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                        <p id="test_name"></p>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                        <a href="quiz.php"><button type="button" class="btn btn-success" style="float:right;">Start Test</button></a>
-                                                                </div>
+                                            <div class="card" style="background: #ededed;margin:20px 10px 0px 10px;">
+                                                <div class="card-body">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <p id="test_name"></p>
                                                             </div>
-                                                            
+                                                            <div class="col-md-4">
+                                                                <a href="quiz.php"><button type="button" class="btn btn-success" style="float:right;">Start Test</button></a>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -103,15 +103,15 @@
             return (!str || 0 === str.length);
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: 'get_dashboard_contents.php',
-                success: function (response) {
+                success: function(response) {
                     console.log('hi');
                     console.log(response);
                     console.log(response.length);
-                    if(response.length > 0) {
+                    if (response.length > 0) {
                         console.log('not');
                         var temp = document.getElementById('row');
                         temp.style.display = 'block';
@@ -128,7 +128,7 @@
                 data: {
                     'message': '1',
                 },
-                success: function (msg) {
+                success: function(msg) {
                     alert(msg);
                     Cookies.remove('last_question_was_answered');
                     Cookies.remove('last_question');
@@ -138,23 +138,20 @@
             });
         }
 
-
-      
         <?php
-    session_start();
-    
-    if($_SESSION['test_ongoing']  == "true"){
-        echo "Test Ongoing";
-        header("Location: quiz.php");
-    }else if(!isset($_SESSION['student_details'])){
-        echo "You are not logged in";
-        header("Location: ../index.php");
-    }
+        session_start();
 
-    function createCard(array $row) { ?>
-  
-<?php } ?>
+        if ($_SESSION['test_ongoing']  == "true") {
+            echo "Test Ongoing";
+            header("Location: quiz.php");
+        } else if (!isset($_SESSION['student_details'])) {
+            echo "You are not logged in";
+            header("Location: ../index.php");
+}
 
+        function createCard(array $row)
+        { ?>
+        <?php } ?>
     </script>
 </body>
 

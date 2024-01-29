@@ -24,7 +24,7 @@ if (isset($_SESSION['test_ongoing']))
 		.logo-style {
 			font-family: 'Satisfy';
 			font-weight: bold;
-			font-size: 2rem;	
+			font-size: 2rem;
 			color: #1f1f1f;
 		}
 	</style>
@@ -75,8 +75,8 @@ if (isset($_SESSION['test_ongoing']))
 							<span class="symbol-input100">
 								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 							</span>
-							<span class="error text-danger" id="empty_roll_number_field"></span>
 						</div>
+						<span class="error text-danger" id="empty_roll_number_field">	</span>
 
 						<div class="wrap-input100 validate-input">
 							<input class="input100" id="studentPassword" type="password" name="password" placeholder="Password" required>
@@ -84,8 +84,8 @@ if (isset($_SESSION['test_ongoing']))
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</span>
-							<span class="error text-danger" id="empty_roll_passsword_field"></span>
 						</div>
+						<span class="error text-danger" id="empty_roll_passsword_field"></span>
 
 						<div class="container-login100-form-btn">
 							<button class="login100-form-btn" onclick="login()">
