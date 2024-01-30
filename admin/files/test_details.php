@@ -18,7 +18,6 @@ if (isset($_POST['general_settings_update'])) {
   $test_date = $_POST['test_date'];
   $total_questions = $_POST['total_questions'];
   $test_status = $_POST['test_status'];
-  $test_class = $_POST['test_class'];
   $status_id = $class_id = -1;
   $general_settings = false;
 
