@@ -16,7 +16,7 @@ if (isset($_SESSION["user_id"]))
     Admin Panel - Login
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
+  <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS Files -->
@@ -68,9 +68,7 @@ if (isset($_SESSION["user_id"]))
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <center>
-                          <div id="result"></div>
-                        </center>
+                        <div id="result"></div>
                       </div>
                     </div>
                   </div>
@@ -78,7 +76,7 @@ if (isset($_SESSION["user_id"]))
               </div>
             </div>
           </div>
-          <div class="col-md-4"></div>
+          <div class=" col-md-4"></div>
 
         </div>
       </div>
@@ -102,12 +100,18 @@ if (isset($_SESSION["user_id"]))
         data: $(this).serialize(),
         success: function(data) {
           if (data == "success") {
-            $("#result").html("Login Successful");
+            $("#result").html("Login Successful").css({
+              "color": "green",
+              "text-align": "center"
+            });
             setTimeout(function() {
               window.location = "files/dashboard.php";
             }, 1200);
           } else {
-            $("#result").html("Login Failed");
+            $("#result").html("Login Failed").css({
+              "color": "red",
+              "text-align": "center"
+            });
           }
         }
       });
