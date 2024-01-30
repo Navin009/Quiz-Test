@@ -8,4 +8,3 @@ $conn = mysqli_connect(DB_HOST, DB_UNAME, DB_PASS, DB_DNAME);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-?>

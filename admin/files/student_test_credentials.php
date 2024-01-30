@@ -1,44 +1,44 @@
 <?php
-    include '../../database/config.php';
-    include "../assets/vendor/fpdf/fpdf.php";
+include '../../database/config.php';
+include "../assets/vendor/fpdf/fpdf.php";
 
-    session_start();
-    if(!isset($_SESSION["user_id"]))
-      header("Location:../index.php");
-    $test_id = $_POST['test_id'];
+session_start();
+if (!isset($_SESSION["user_id"]))
+  header("Location:../index.php");
+$test_id = $_POST['test_id'];
 
 
-   	if(isset($_POST['print'])) {
-   		$test_id = $_POST['test_id'];
+if (isset($_POST['print'])) {
+  $test_id = $_POST['test_id'];
 
-		$pdf = new FPDF();
-		$pdf->AddPage();
-		$pdf->SetFont('Arial','B',12);
+  $pdf = new FPDF();
+  $pdf->AddPage();
+  $pdf->SetFont('Arial', 'B', 12);
 
-        $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
-        $result = mysqli_query($conn,$sql);
-        $i = 1;
-        while($row = mysqli_fetch_assoc($result)) {
-            $rollno_id = $row["rollno"];
-            $sql1 = "SELECT * from student_data where id = $rollno_id";
-            $result1 = mysqli_query($conn,$sql1);
-            $row1 = mysqli_fetch_assoc($result1);
-        	$pdf->Cell(30,12,$row1["rollno"],1,0,"C");
-        	if( $i%3 == 0 )
-        		$pdf->MultiCell(30,12,$row["password"]."\n",1,"C");
-        	else
-    		{
-    			$pdf->Cell(30,12,$row["password"]."\t",1,0,"C");
-    			$pdf->Cell(5,12,"\t",0,0,"C");
-    		}
-        	$i++;
-   		}
-   		$pdf->Output();   	
-   	}
+  $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
+  $result = mysqli_query($conn, $sql);
+  $i = 1;
+  while ($row = mysqli_fetch_assoc($result)) {
+    $rollno_id = $row["rollno"];
+    $sql1 = "SELECT * from student_data where id = $rollno_id";
+    $result1 = mysqli_query($conn, $sql1);
+    $row1 = mysqli_fetch_assoc($result1);
+    $pdf->Cell(30, 12, $row1["rollno"], 1, 0, "C");
+    if ($i % 3 == 0)
+      $pdf->MultiCell(30, 12, $row["password"] . "\n", 1, "C");
+    else {
+      $pdf->Cell(30, 12, $row["password"] . "\t", 1, 0, "C");
+      $pdf->Cell(5, 12, "\t", 0, 0, "C");
+    }
+    $i++;
+  }
+  $pdf->Output();
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -48,7 +48,7 @@
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -66,7 +66,7 @@
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -102,55 +102,55 @@
                   <div class="col-md-8">
                     <h5 class="title">User Test Credentials</h5>
                   </div>
-                <div class="col-md-4">
+                  <div class="col-md-4">
                     <button class="btn btn-primary btn-block btn-round" onclick="completed()" style="margin-top:0px;width:100px !important;float:right !important;">Print</button>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="card-body" id="card-body">
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                  <input type="hidden" name="general_settings"/>
-                    <table class="table contact_table table-striped table-bordered">
-                        <thead class=" text-primary">
-                        <th>
-                            SERIAL ID
-                        </th>
-                        <th>
-                            ARMY NUMBER
-                        </th>
-                        <th>
-                            Password
-                        </th>
-                        </thead>
-                        <tbody>  
-                        <?php
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                  <input type="hidden" name="general_settings" />
+                  <table class="table contact_table table-striped table-bordered">
+                    <thead class=" text-primary">
+                      <th>
+                        SERIAL ID
+                      </th>
+                      <th>
+                        ARMY NUMBER
+                      </th>
+                      <th>
+                        Password
+                      </th>
+                    </thead>
+                    <tbody>
+                      <?php
 
-                            $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
-                            $result = mysqli_query($conn,$sql);
-                            $i = 1;
-                            while($row = mysqli_fetch_assoc($result)) {
-                                $rollno_id = $row["rollno"];
-                                $sql1 = "SELECT * from student_data where id = $rollno_id";
-                                $result1 = mysqli_query($conn,$sql1);
-                                $row1 = mysqli_fetch_assoc($result1);
-                            ?>    
-                                <tr>
-                                    <td>
-                                        <?= $i; ?>
-                                    </td>
-                                    <td>
-                                        <?= $row1["rollno"];?>
-                                    </td>     
-                                    <td>
-                                        <?= $row["password"];?>
-                                    </td>     
-                                </tr>
-                        <?php
-                            $i++;
-                            }       
-                        ?>                         
-                        </tbody>
-                    </table>
+                      $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
+                      $result = mysqli_query($conn, $sql);
+                      $i = 1;
+                      while ($row = mysqli_fetch_assoc($result)) {
+                        $rollno_id = $row["rollno"];
+                        $sql1 = "SELECT * from student_data where id = $rollno_id";
+                        $result1 = mysqli_query($conn, $sql1);
+                        $row1 = mysqli_fetch_assoc($result1);
+                      ?>
+                        <tr>
+                          <td>
+                            <?= $i; ?>
+                          </td>
+                          <td>
+                            <?= $row1["rollno"]; ?>
+                          </td>
+                          <td>
+                            <?= $row["password"]; ?>
+                          </td>
+                        </tr>
+                      <?php
+                        $i++;
+                      }
+                      ?>
+                    </tbody>
+                  </table>
                 </form>
               </div>
             </div>
@@ -158,13 +158,13 @@
         </div>
       </div>
 
-      <form id="form-print" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" target='_blank'>
+      <form id="form-print" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" target='_blank'>
         <input type="hidden" name="print">
-        <input type="hidden" name="test_id" value="<?= $test_id;?>">
+        <input type="hidden" name="test_id" value="<?= $test_id; ?>">
       </form>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -183,9 +183,9 @@
     window.location = "new_test.php";
   }
 
-      function completed() {
-      document.getElementById("form-print").submit();
-    }
-
+  function completed() {
+    document.getElementById("form-print").submit();
+  }
 </script>
+
 </html>

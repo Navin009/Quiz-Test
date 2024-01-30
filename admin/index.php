@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(isset($_SESSION["user_id"]))
+if (isset($_SESSION["user_id"]))
   header("Location:files/dashboard.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
@@ -12,7 +13,7 @@ if(isset($_SESSION["user_id"]))
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="robots" content="noindex">
   <title>
-   Admin Panel - Login
+    Admin Panel - Login
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -35,7 +36,9 @@ if(isset($_SESSION["user_id"]))
           <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                <center><h5 class="title">Login</h5></center>
+                <center>
+                  <h5 class="title">Login</h5>
+                </center>
               </div>
               <div class="card-body">
                 <form id="login_form">
@@ -47,11 +50,11 @@ if(isset($_SESSION["user_id"]))
                       </div>
                     </div>
                   </div>
-                   <div class="row">
+                  <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Your Password" >
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Your Password">
                       </div>
                     </div>
                   </div>
@@ -62,10 +65,12 @@ if(isset($_SESSION["user_id"]))
                       </div>
                     </div>
                   </div>
-                   <div class="row">
+                  <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                      <center><div id="result"></div></center>
+                        <center>
+                          <div id="result"></div>
+                        </center>
                       </div>
                     </div>
                   </div>
@@ -74,10 +79,10 @@ if(isset($_SESSION["user_id"]))
             </div>
           </div>
           <div class="col-md-4"></div>
-          
+
         </div>
       </div>
-      <?php include "files/footer.php";?>
+      <?php include "files/footer.php"; ?>
     </div>
   </div>
 
@@ -85,27 +90,23 @@ if(isset($_SESSION["user_id"]))
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
-    <script>
+  <script>
     $('#login_form').submit(function(event) {
       console.log($(this).serialize());
       $("#result").html("Logging in...");
       /* Act on the event */
       event.preventDefault();
       $.ajax({
-        type:"POST",
-        url:"files/checklogin.php",
-        data:$(this).serialize(),
-        success:function(data)
-        {
-          if(data=="success")
-          {
+        type: "POST",
+        url: "files/checklogin.php",
+        data: $(this).serialize(),
+        success: function(data) {
+          if (data == "success") {
             $("#result").html("Login Successful");
-            setTimeout(function(){
-              window.location="files/dashboard.php";
-            },1200);
-          }
-          else
-          {
+            setTimeout(function() {
+              window.location = "files/dashboard.php";
+            }, 1200);
+          } else {
             $("#result").html("Login Failed");
           }
         }
@@ -113,4 +114,5 @@ if(isset($_SESSION["user_id"]))
     });
   </script>
 </body>
+
 </html>

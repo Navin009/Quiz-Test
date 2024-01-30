@@ -76,7 +76,7 @@ if (isset($_SESSION['test_ongoing']))
 								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 							</span>
 						</div>
-						<span class="error text-danger" id="empty_roll_number_field">	</span>
+						<span class="error text-danger" id="empty_roll_number_field"> </span>
 
 						<div class="wrap-input100 validate-input">
 							<input class="input100" id="studentPassword" type="password" name="password" placeholder="Password" required>

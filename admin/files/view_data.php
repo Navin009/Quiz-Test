@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -11,7 +11,7 @@
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -30,7 +30,7 @@
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -68,28 +68,28 @@
                   </div>
                   <div class="col-md-2">
                     <select id="options" name="options" class="btn-round" required style="width:100%;">
-                        <option id="" selected="true" value="" disabled="disabled">Select Batch</option>
-                       
+                      <option id="" selected="true" value="" disabled="disabled">Select Batch</option>
+
                     </select>
                   </div>
                   <div class="col-md-2">
-                    <button onclick = 'populateTable()' class="btn btn-primary btn-block btn-round" style="margin-top:0px;width:100px !important;float:right !important;" onclick='getStudentsFromClass()'>FIND</button>    
+                    <button onclick='populateTable()' class="btn btn-primary btn-block btn-round" style="margin-top:0px;width:100px !important;float:right !important;" onclick='getStudentsFromClass()'>FIND</button>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="card-body">
-                <!-- <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> -->
-                  <input type="hidden" name="general_settings"/>
-                  <!-- table contact_table table-striped table-bordered -->
-                    
-                  <table id="roll_numbers_table">
+                <!-- <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"> -->
+                <input type="hidden" name="general_settings" />
+                <!-- table contact_table table-striped table-bordered -->
+
+                <table id="roll_numbers_table">
                   <thead>
-                      <tr>
-                          <th data-field= "id">ID</th>
-                          <th data-field="rollno">Army Number</th>
-                      </tr>
+                    <tr>
+                      <th data-field="id">ID</th>
+                      <th data-field="rollno">Army Number</th>
+                    </tr>
                   </thead>
-              </table>
+                </table>
                 <!-- </form> -->
               </div>
             </div>
@@ -98,7 +98,7 @@
       </div>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -114,38 +114,37 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 </body>
 <script>
-
-var total_count;
-  $( document ).ready(function() {
+  var total_count;
+  $(document).ready(function() {
     $.ajax({
-						type: 'POST',
-						url: 'get_classes.php',
-						success: function (response) {
-              response.counter = 'foo';
-              var opts = $.parseJSON(response);
-                $.each(opts, function(i, d) {
-                    $('#options').append('<option value="' + d + '">' + d + '</option>');
-                });
-						}
-		});
+      type: 'POST',
+      url: 'get_classes.php',
+      success: function(response) {
+        response.counter = 'foo';
+        var opts = $.parseJSON(response);
+        $.each(opts, function(i, d) {
+          $('#options').append('<option value="' + d + '">' + d + '</option>');
+        });
+      }
+    });
   });
 
-  function populateTable(){
+  function populateTable() {
     $.ajax({
-						type: 'POST',
-						url: 'get_student_from_class.php',
-            data : {
-              'class_name' : $('#options option:selected').val(),
-            },
-            datatype : 'json',
-						success: function (response) {
-              var jsondata = JSON.parse(response);
-                $('#roll_numbers_table').bootstrapTable({
-                  data:jsondata,
-                });
-          }
+      type: 'POST',
+      url: 'get_student_from_class.php',
+      data: {
+        'class_name': $('#options option:selected').val(),
+      },
+      datatype: 'json',
+      success: function(response) {
+        var jsondata = JSON.parse(response);
+        $('#roll_numbers_table').bootstrapTable({
+          data: jsondata,
+        });
+      }
     });
   }
-  
 </script>
+
 </html>

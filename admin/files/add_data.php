@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION["user_id"]))
+if (!isset($_SESSION["user_id"]))
   header("Location:../index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -31,7 +32,7 @@ if(!isset($_SESSION["user_id"]))
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -66,33 +67,33 @@ if(!isset($_SESSION["user_id"]))
                 <h5 class="title">Add New Batch Data</h5>
               </div>
               <div class="card-body">
-                  <input type="hidden" name="general_settings">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Batch No</label>
-                        <input type="text" class="form-control" id = "class_name" name="site_name" placeholder="Batch No"/>
-                        <span id = "class_name_error" class="error text-danger"></span>
-                      </div>
-                      <div class="form-group">
-                        <label>Starting Army number</label>
-                        <input type="text" class="form-control" id = "starting_roll_number" name="site_name" placeholder="Starting Army number"/>
-                        <span id = "starting_roll_error" class="error text-danger"></span>
-                      </div>
-                      <div class="form-group">
-                        <label>Ending Army number</label>
-                        <input type="text" class="form-control" id = "ending_roll_number" name="site_name" placeholder="Ending Army number"/>
-                        <span id = "ending_roll_error" class="error text-danger"></span>
-                      </div>
+                <input type="hidden" name="general_settings">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Batch No</label>
+                      <input type="text" class="form-control" id="class_name" name="site_name" placeholder="Batch No" />
+                      <span id="class_name_error" class="error text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label>Starting Army number</label>
+                      <input type="text" class="form-control" id="starting_roll_number" name="site_name" placeholder="Starting Army number" />
+                      <span id="starting_roll_error" class="error text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label>Ending Army number</label>
+                      <input type="text" class="form-control" id="ending_roll_number" name="site_name" placeholder="Ending Army number" />
+                      <span id="ending_roll_error" class="error text-danger"></span>
                     </div>
                   </div>
-                  <div class="row center-element">
-                    <div class="col-md-8">
-                      <div class="form-group"><br/>
-                        <button class="btn btn-primary btn-block btn-round" onclick = 'createNewClass()'>CREATE</button>
-                      </div>
+                </div>
+                <div class="row center-element">
+                  <div class="col-md-8">
+                    <div class="form-group"><br />
+                      <button class="btn btn-primary btn-block btn-round" onclick='createNewClass()'>CREATE</button>
                     </div>
                   </div>
+                </div>
                 <!-- </form> -->
               </div>
             </div>
@@ -103,28 +104,28 @@ if(!isset($_SESSION["user_id"]))
                 <h5 class="title">Add User</h5>
               </div>
               <div class="card-body">
-                  <input type="hidden" name="general_settings">
-                  <div class="row">
-                    <div class="col-md-12">
-                        <select id="options" name="class_option" class="btn-round" required style="width:100%;">
-                            <option selected="true" value="" disabled="disabled">Select Batch for test</option>      
-                        </select>
-                        <span id = "extra_roll_class_error" class="error text-danger"></span>
+                <input type="hidden" name="general_settings">
+                <div class="row">
+                  <div class="col-md-12">
+                    <select id="options" name="class_option" class="btn-round" required style="width:100%;">
+                      <option selected="true" value="" disabled="disabled">Select Batch for test</option>
+                    </select>
+                    <span id="extra_roll_class_error" class="error text-danger"></span>
 
-                        <div class="form-group" style="margin-top:10px;">
-                            <label>User Army number</label>
-                            <input type="text" class="form-control" id="extra_roll_number" name="site_name" placeholder="User Army number"/>
-                            <span id = "extra_roll_error" class="error text-danger"></span>
-                        </div>
+                    <div class="form-group" style="margin-top:10px;">
+                      <label>User Army number</label>
+                      <input type="text" class="form-control" id="extra_roll_number" name="site_name" placeholder="User Army number" />
+                      <span id="extra_roll_error" class="error text-danger"></span>
                     </div>
                   </div>
-                  <div class="row center-element">
-                    <div class="col-md-8">
-                      <div class="form-group"><br/>
-                        <button class="btn btn-primary btn-block" onclick = 'addStudent()'>ADD</button>
-                      </div>
+                </div>
+                <div class="row center-element">
+                  <div class="col-md-8">
+                    <div class="form-group"><br />
+                      <button class="btn btn-primary btn-block" onclick='addStudent()'>ADD</button>
                     </div>
                   </div>
+                </div>
                 <!-- </form> -->
               </div>
             </div>
@@ -133,7 +134,7 @@ if(!isset($_SESSION["user_id"]))
       </div>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -148,51 +149,50 @@ if(!isset($_SESSION["user_id"]))
   <!-- <script src="http://jqueryte.com/js/jquery-te-1.4.0.min.js"></script> -->
 
   <script>
-
-    $( document ).ready(function() {
+    $(document).ready(function() {
       $.ajax({
-						type: 'POST',
-						url: 'get_classes.php',
-						success: function (response) {
-              var opts = $.parseJSON(response);
-                $.each(opts, function(i, d) {
-                    $('#options').append('<option value="' + d + '">' + d + '</option>');
-                });
-						}
-					});
+        type: 'POST',
+        url: 'get_classes.php',
+        success: function(response) {
+          var opts = $.parseJSON(response);
+          $.each(opts, function(i, d) {
+            $('#options').append('<option value="' + d + '">' + d + '</option>');
+          });
+        }
+      });
     });
 
-    function createNewClass(){
+    function createNewClass() {
       var someValidationFailed = false;
 
-      if(!$('#class_name').val()){
-          $('#class_name_error').html("Please enter Class Name");
-          someValidationFailed = true;
+      if (!$('#class_name').val()) {
+        $('#class_name_error').html("Please enter Class Name");
+        someValidationFailed = true;
       }
 
-      if(!$('#starting_roll_number').val()){
+      if (!$('#starting_roll_number').val()) {
         $('#starting_roll_error').html("Please enter Starting roll number");
         someValidationFailed = true;
       }
 
-      if($('#starting_roll_number').val() && !$.isNumeric($('#starting_roll_number').val())){
+      if ($('#starting_roll_number').val() && !$.isNumeric($('#starting_roll_number').val())) {
         $('#starting_roll_error').html("Please enter a valid Starting roll number");
         someValidationFailed = true;
       }
 
-      if(!$('#ending_roll_number').val()){
+      if (!$('#ending_roll_number').val()) {
         $('#ending_roll_error').html("Please enter Ending roll number");
         someValidationFailed = true;
       }
 
-      if($('#ending_roll_number').val() && !$.isNumeric($('#ending_roll_number').val())){
+      if ($('#ending_roll_number').val() && !$.isNumeric($('#ending_roll_number').val())) {
         $('#ending_roll_error').html("Please enter a valid Ending roll number");
         someValidationFailed = true;
       }
-      
-      if(!someValidationFailed){
-        
-      $.ajax({
+
+      if (!someValidationFailed) {
+
+        $.ajax({
           type: 'POST',
           url: 'add_new_class.php',
           data: {
@@ -200,47 +200,47 @@ if(!isset($_SESSION["user_id"]))
             'starting_roll_number': $('#starting_roll_number').val(),
             'ending_roll_number': $('#ending_roll_number').val()
           },
-          success: function (response) {
+          success: function(response) {
             alert(response);
           }
         });
       }
-}
+    }
 
     function addStudent() {
       var someValidationFailed = false;
 
-      if(!$('#options').val()) {
+      if (!$('#options').val()) {
         $('#extra_roll_class_error').html("Please select class");
         someValidationFailed = true;
       }
 
-      if(!$('#extra_roll_number').val()){
+      if (!$('#extra_roll_number').val()) {
         $('#extra_roll_error').html("Please enter the Roll number");
         someValidationFailed = true;
       }
 
-      if($('#extra_roll_number').val() && !$.isNumeric($('#extra_roll_number').val())){
+      if ($('#extra_roll_number').val() && !$.isNumeric($('#extra_roll_number').val())) {
         $('#extra_roll_error').html("Please enter a valid Roll number");
         someValidationFailed = true;
       }
-    
-    if(!someValidationFailed){
-      $.ajax({
-        type: 'POST',
-        url: 'add_extra_student.php',
-        data: {
-          'class_name': $('#options').val(),
-          'extra_roll_number': $('#extra_roll_number').val(),
-        },
-        success: function (response) {
-          alert(response);
-          location.reload();
-        }
-      }); 
-    } 
-    }
 
+      if (!someValidationFailed) {
+        $.ajax({
+          type: 'POST',
+          url: 'add_extra_student.php',
+          data: {
+            'class_name': $('#options').val(),
+            'extra_roll_number': $('#extra_roll_number').val(),
+          },
+          success: function(response) {
+            alert(response);
+            location.reload();
+          }
+        });
+      }
+    }
   </script>
 </body>
+
 </html>

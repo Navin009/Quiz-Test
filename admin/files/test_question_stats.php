@@ -1,14 +1,15 @@
 <?php
-  include '../../database/config.php';
-  session_start();
-  if(!isset($_SESSION["user_id"]))
-    header("Location:../index.php");
+include '../../database/config.php';
+session_start();
+if (!isset($_SESSION["user_id"]))
+  header("Location:../index.php");
 
-  $test_id = $_POST['test_id'];
-  $name = $_POST['test_name'];
+$test_id = $_POST['test_id'];
+$name = $_POST['test_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -18,7 +19,7 @@
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -36,7 +37,7 @@
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -72,34 +73,34 @@
                   <div class="col-md-8">
                     <h5 class="title"><?= $name; ?></h5>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="card-body">
-                    <?php
-                      $sql = "select * from score where test_id = '$test_id'";
-                      $result = mysqli_query($conn,$sql);
-                      while($row = mysqli_fetch_assoc($result)) {
-                        $question_id = $row["question_id"];
-                        $sql1 = "select * from Questions where id = '$question_id'";
-                        $result1 = mysqli_query($conn,$sql1);
-                        $row1 = mysqli_fetch_assoc($result1);
-                        ?>
-                          <div class="card" style="background:#ededed;">
-                              <div class="card-body">
-                                  <h6><?= $row1["title"]; ?></h6>
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <p>Correct Count - <?= $row["correct_count"];?></p>  
-                                      </div> 
-                                      <div class="col-md-6">
-                                          <p style="text-align:right;">Wrong Count - <?= $row["wrong_count"];?></p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                    <?php    
-                      }
-                    ?>
+                <?php
+                $sql = "select * from score where test_id = '$test_id'";
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_assoc($result)) {
+                  $question_id = $row["question_id"];
+                  $sql1 = "select * from Questions where id = '$question_id'";
+                  $result1 = mysqli_query($conn, $sql1);
+                  $row1 = mysqli_fetch_assoc($result1);
+                ?>
+                  <div class="card" style="background:#ededed;">
+                    <div class="card-body">
+                      <h6><?= $row1["title"]; ?></h6>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <p>Correct Count - <?= $row["correct_count"]; ?></p>
+                        </div>
+                        <div class="col-md-6">
+                          <p style="text-align:right;">Wrong Count - <?= $row["wrong_count"]; ?></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <?php
+                }
+                ?>
               </div>
             </div>
           </div>
@@ -107,7 +108,7 @@
       </div>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -121,4 +122,5 @@
   <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.0" type="text/javascript"></script>
   <!-- <script src="http://jqueryte.com/js/jquery-te-1.4.0.min.js"></script> -->
 </body>
+
 </html>

@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION["user_id"]))
+if (!isset($_SESSION["user_id"]))
   header("Location:../index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -14,7 +15,7 @@ if(!isset($_SESSION["user_id"]))
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -32,26 +33,26 @@ if(!isset($_SESSION["user_id"]))
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
 
-  <!--php code to redirect to the test details php after successfull question add-->
-    <?php
+      <!--php code to redirect to the test details php after successfull question add-->
+      <?php
       include '../../database/config.php';
       $test_id = $_POST['test_id'];
-    ?>
-    <form id="form-completed" method="POST" action="test_details.php">
-        <input type="hidden" name="test_id" value="<?= $test_id;?>">
-    </form>
-    <script>
+      ?>
+      <form id="form-completed" method="POST" action="test_details.php">
+        <input type="hidden" name="test_id" value="<?= $test_id; ?>">
+      </form>
+      <script>
         function completed() {
           document.getElementById("form-completed").submit();
         }
-    </script>
-    <?php
-      if(isset($_POST['add_question'])) {
-        echo "<script>console.log('".$test_id."');</script>";
+      </script>
+      <?php
+      if (isset($_POST['add_question'])) {
+        echo "<script>console.log('" . $test_id . "');</script>";
         echo "<script>console.log('here');</script>";
         $title = $_POST['title'];
         $op_a = $_POST['op_a'];
@@ -63,43 +64,40 @@ if(!isset($_SESSION["user_id"]))
 
         $op_correct_text = "";
 
-        if($op_correct == "A" || $op_correct == "a") {
+        if ($op_correct == "A" || $op_correct == "a") {
           $op_correct_text = "a";
-        }
-        else if($op_correct == "B" || $op_correct == "b") {
+        } else if ($op_correct == "B" || $op_correct == "b") {
           $op_correct_text = "b";
-        }
-        else if($op_correct == "C" || $op_correct == "c") {
+        } else if ($op_correct == "C" || $op_correct == "c") {
           $op_correct_text = "c";
-        }
-        else if($op_correct == "D" || $op_correct == "d") {
+        } else if ($op_correct == "D" || $op_correct == "d") {
           $op_correct_text = "d";
         }
-        echo "<script>console.log('".$title."');</script>";
-        echo "<script>console.log('".$op_a."');</script>";
-        echo "<script>console.log('".$op_b."');</script>";
-        echo "<script>console.log('".$op_c."');</script>";
-        echo "<script>console.log('".$op_d."');</script>";
-        echo "<script>console.log('".$op_correct_text."');</script>";
-        echo "<script>console.log('".$score."');</script>";
-        
-        
+        echo "<script>console.log('" . $title . "');</script>";
+        echo "<script>console.log('" . $op_a . "');</script>";
+        echo "<script>console.log('" . $op_b . "');</script>";
+        echo "<script>console.log('" . $op_c . "');</script>";
+        echo "<script>console.log('" . $op_d . "');</script>";
+        echo "<script>console.log('" . $op_correct_text . "');</script>";
+        echo "<script>console.log('" . $score . "');</script>";
+
+
         $sql = "INSERT INTO Questions(title,optionA,optionB,optionC,optionD,correctAns,score) values('$title','$op_a','$op_b','$op_c','$op_d','$op_correct_text','$score')";
-        $result = mysqli_query($conn,$sql);
+        $result = mysqli_query($conn, $sql);
         echo "<script>console.log('done 1');</script>";
-        if($result) {
+        if ($result) {
           echo "<script>console.log('done 2');</script>";
           $question_id = mysqli_insert_id($conn);
           $sql1 = "INSERT INTO question_test_mapping VALUES('$question_id','$test_id')";
-          mysqli_query($conn,$sql1);
+          mysqli_query($conn, $sql1);
           $sql2 = "INSERT INTO score(test_id, question_id, correct_count, wrong_count) VALUES('$test_id','$question_id',0,0)";
-          mysqli_query($conn,$sql2);
+          mysqli_query($conn, $sql2);
           echo '<script type="text/javascript">',
-        'completed();',
-        '</script>';
+          'completed();',
+          '</script>';
         }
       }
-    ?>
+      ?>
 
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
@@ -128,45 +126,45 @@ if(!isset($_SESSION["user_id"]))
 
       <div class="content" style="min-height: auto;">
         <div class="row">
-          <div class="col-md-2"></div>  
+          <div class="col-md-2"></div>
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
                 <h5 class="title">Add New Question</h5>
               </div>
               <div class="card-body">
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                   <input type="hidden" name="add_question">
-                  <input type="hidden" name="test_id" value="<?= $test_id;?>">
+                  <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Question title</label>
-                          <input type="text" class="form-control" name="title" placeholder="Question title" required/>
+                        <input type="text" class="form-control" name="title" placeholder="Question title" required />
                       </div>
                       <div class="form-group">
                         <label>Option (A)</label>
-                          <input type="text" class="form-control" name="op_a" placeholder="Option (A)" required/>
+                        <input type="text" class="form-control" name="op_a" placeholder="Option (A)" required />
                       </div>
                       <div class="form-group">
                         <label>Option (B)</label>
-                          <input type="text" class="form-control" name="op_b" placeholder="Option (B)" required/>
+                        <input type="text" class="form-control" name="op_b" placeholder="Option (B)" required />
                       </div>
                       <div class="form-group">
                         <label>Option (C)</label>
-                          <input type="text" class="form-control" name="op_c" placeholder="Option (C)" required/>
+                        <input type="text" class="form-control" name="op_c" placeholder="Option (C)" required />
                       </div>
                       <div class="form-group">
                         <label>Option (D)</label>
-                          <input type="text" class="form-control" name="op_d" placeholder="Option (D)" required/>
+                        <input type="text" class="form-control" name="op_d" placeholder="Option (D)" required />
                       </div>
                       <div class="form-group">
                         <label>Correct Option (A/B/C/D)</label>
-                          <input type="text" class="form-control" name="op_correct" placeholder="Correct Option" required/>
+                        <input type="text" class="form-control" name="op_correct" placeholder="Correct Option" required />
                       </div>
                       <div class="form-group">
                         <label>Score</label>
-                          <input type="text" class="form-control" name="score" placeholder="Score" required/>
+                        <input type="text" class="form-control" name="score" placeholder="Score" required />
                       </div>
                     </div>
                   </div>
@@ -186,7 +184,7 @@ if(!isset($_SESSION["user_id"]))
       </div>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -200,4 +198,5 @@ if(!isset($_SESSION["user_id"]))
   <script src="../assets/js/now-ui-dashboard.min.js?v=1.1.0" type="text/javascript"></script>
   <!-- <script src="http://jqueryte.com/js/jquery-te-1.4.0.min.js"></script> -->
 </body>
+
 </html>

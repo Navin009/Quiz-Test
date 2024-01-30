@@ -147,7 +147,7 @@ if (isset($_SESSION['test_ongoing']))
         } else if (!isset($_SESSION['student_details'])) {
             echo "You are not logged in";
             header("Location: ../index.php");
-}
+        }
 
         function createCard(array $row)
         { ?>

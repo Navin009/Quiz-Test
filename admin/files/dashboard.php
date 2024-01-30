@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION["user_id"]))
+if (!isset($_SESSION["user_id"]))
   header("Location:../index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -14,7 +15,7 @@ if(!isset($_SESSION["user_id"]))
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -32,7 +33,7 @@ if(!isset($_SESSION["user_id"]))
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -71,44 +72,45 @@ if(!isset($_SESSION["user_id"]))
                   <div class="col-md-4">
                     <button class="btn btn-primary btn-block btn-round" onclick="redirect_to_new_test()" style="margin-top:0px;width:100px !important;float:right !important;">NEW</button>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="card-body">
-                  <?php
-                    include '../../database/config.php';
-                    $user_id = $_SESSION["user_id"];
-                    $sql = "select * from tests where teacher_id = $user_id and status_id IN (1,2)";
-                    $result = mysqli_query($conn,$sql);
-                    if(mysqli_num_rows($result) > 0) {
-                      while($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                          <div class="card" style="background:#ededed;">
-                              <div class="card-body" onclick="submit(<?= $row['id'];?>)">
-                                <h6><?= $row["name"];?></h6>
-                                <div class="row">
-                                  <div class="col-md-8">
-                                    <p>Subject - <?= $row["subject"];?></p>
-                                  </div>
-                                  <div class="col-md-4"> 
-                                    <p style="text-align:right;">Date - <?= $row["date"];?></p>
-                                  </div>
-                                </div>
-                              </div>
+                <?php
+                include '../../database/config.php';
+                $user_id = $_SESSION["user_id"];
+                $sql = "select * from tests where teacher_id = $user_id and status_id IN (1,2)";
+                $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                  while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                    <div class="card" style="background:#ededed;">
+                      <div class="card-body" onclick="submit(<?= $row['id']; ?>)">
+                        <h6><?= $row["name"]; ?></h6>
+                        <div class="row">
+                          <div class="col-md-8">
+                            <p>Subject - <?= $row["subject"]; ?></p>
                           </div>
-                        <?php
-                      }
-                    }
-                    else {
-                      ?>
-                      <div id="no-data">
-                        <center>
-                          <img src="../assets/img/no-data.svg" height="400" width="400"/>
-                          <center><h5>No Data</h5></center>
-                        </center>
+                          <div class="col-md-4">
+                            <p style="text-align:right;">Date - <?= $row["date"]; ?></p>
+                          </div>
+                        </div>
                       </div>
-                      <?php
-                    }
+                    </div>
+                  <?php
+                  }
+                } else {
                   ?>
+                  <div id="no-data">
+                    <center>
+                      <img src="../assets/img/no-data.svg" height="400" width="400" />
+                      <center>
+                        <h5>No Data</h5>
+                      </center>
+                    </center>
+                  </div>
+                <?php
+                }
+                ?>
               </div>
             </div>
           </div>
@@ -120,7 +122,7 @@ if(!isset($_SESSION["user_id"]))
       </form>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -144,4 +146,5 @@ if(!isset($_SESSION["user_id"]))
     document.getElementById("test_details").submit();
   }
 </script>
+
 </html>

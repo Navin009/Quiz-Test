@@ -1,14 +1,15 @@
 <?php
-  include '../../database/config.php';
-  session_start();
-  if(!isset($_SESSION["user_id"]))
-    header("Location:../index.php");
+include '../../database/config.php';
+session_start();
+if (!isset($_SESSION["user_id"]))
+  header("Location:../index.php");
 
-  $test_id = $_POST['test_id'];
-  $name = $_POST['test_name'];
+$test_id = $_POST['test_id'];
+$name = $_POST['test_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -18,7 +19,7 @@
   <meta http-equiv="pragma" content="no-cache" />
   <meta http-equiv="expires" content="-1" />
   <title>
-    <?=ucfirst(basename($_SERVER['PHP_SELF'], ".php"));?>
+    <?= ucfirst(basename($_SERVER['PHP_SELF'], ".php")); ?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -38,7 +39,7 @@
   <div class="wrapper ">
     <!-- sidebar -->
     <?php
-      include "sidebar.php";
+    include "sidebar.php";
     ?>
     <div class="main-panel">
       <!-- Navbar -->
@@ -75,42 +76,42 @@
                     <h5 class="title"><?= $name; ?></h5>
                   </div>
                   <div class="col-md-4">
-                    <button class="btn btn-primary btn-block btn-round" onclick="submit(<?= $test_id;?>,'<?php echo $name;?>')" style="margin-top:0px;width:200px !important;float:right !important;">Questions Stats</button>
+                    <button class="btn btn-primary btn-block btn-round" onclick="submit(<?= $test_id; ?>,'<?php echo $name; ?>')" style="margin-top:0px;width:200px !important;float:right !important;">Questions Stats</button>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="card-body">
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                  <input type="hidden" name="general_settings"/>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                  <input type="hidden" name="general_settings" />
                   <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
-                        <tr>
-                            <th>SERIAL NO</th>
-                            <th>ROLL NO</th>
-                            <th>Score</th>
-                        </tr>
+                      <tr>
+                        <th>SERIAL NO</th>
+                        <th>ROLL NO</th>
+                        <th>Score</th>
+                      </tr>
                     </thead>
                     <tbody>
-                    <?php
+                      <?php
                       $sql = "select * from students where test_id = $test_id";
-                      $result = mysqli_query($conn,$sql);
+                      $result = mysqli_query($conn, $sql);
                       $i = 1;
-                      while($row = mysqli_fetch_assoc($result)) {
+                      while ($row = mysqli_fetch_assoc($result)) {
                         $roll_no = $row["rollno"];
                         $sql1 = "select rollno from student_data where id = '$roll_no'";
-                        $result1 = mysqli_query($conn,$sql1);
+                        $result1 = mysqli_query($conn, $sql1);
                         $row1 = mysqli_fetch_assoc($result1);
-                        ?>
+                      ?>
                         <tr>
                           <td><?= $i; ?></td>
                           <td><?= $row1["rollno"]; ?></td>
                           <td><?= $row["score"]; ?></td>
                         </tr>
 
-                    <?php    
-                      $i++;
+                      <?php
+                        $i++;
                       }
-                    ?>
+                      ?>
 
                     </tbody>
                   </table>
@@ -126,7 +127,7 @@
       </form>
       <!-- footer -->
       <?php
-        include "footer.php";
+      include "footer.php";
       ?>
     </div>
   </div>
@@ -151,12 +152,11 @@
   });
 
 
-  function submit(val1,val2) {
+  function submit(val1, val2) {
     document.getElementById("test_id").value = val1;
     document.getElementById("test_name").value = val2;
     document.getElementById("test_details").submit();
   }
-
-
 </script>
+
 </html>
