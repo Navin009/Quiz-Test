@@ -132,7 +132,7 @@
   function populateTable() {
     $.ajax({
       type: 'POST',
-      url: 'get_user_from_class.php',
+      url: 'get_user_from_batch.php',
       data: {
         'batch_name': $('#options option:selected').val(),
       },
