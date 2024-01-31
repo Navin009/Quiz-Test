@@ -60,12 +60,12 @@ if (isset($_POST['other_settings'])) {
   $random = generateRandomString($temp);
   $random = $random . $test_id;
 
-  $sql = "INSERT INTO student_data(rollno,batch_id) values ($user_roll_no,null)";
+  $sql = "INSERT INTO user_data(rollno,batch_id) values ($user_roll_no,null)";
   $result = mysqli_query($conn, $sql);
   $roll_no_id = mysqli_insert_id($conn);
   if ($result) {
     $other_settings = true;
-    $sql1 = "INSERT INTO students (test_id,rollno,password,score,status) values('$test_id','$roll_no_id','$random',0,0)";
+    $sql1 = "INSERT INTO users (test_id,rollno,password,score,status) values('$test_id','$roll_no_id','$user_roll_no',0,0)";
     $result1 = mysqli_query($conn, $sql1);
     if ($result1) {
       $other_settings = true;
@@ -363,7 +363,7 @@ if (isset($_POST['test_id']) && $delete == false) {
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
                       $question_id = $row["question_id"];
-                      $sql1 = "select * from Questions where id = $question_id";
+                      $sql1 = "select * from questions where id = $question_id";
                       $result1 = mysqli_query($conn, $sql1);
                       $row1 = mysqli_fetch_assoc($result1);
                     ?>

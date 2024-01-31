@@ -15,12 +15,12 @@ if (isset($_POST['print'])) {
   $pdf->AddPage();
   $pdf->SetFont('Arial', 'B', 12);
 
-  $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
+  $sql = "SELECT id,rollno,password from users where test_id = '$test_id' order by id ASC";
   $result = mysqli_query($conn, $sql);
   $i = 1;
   while ($row = mysqli_fetch_assoc($result)) {
     $rollno_id = $row["rollno"];
-    $sql1 = "SELECT * from student_data where id = $rollno_id";
+    $sql1 = "SELECT * from user_data where id = $rollno_id";
     $result1 = mysqli_query($conn, $sql1);
     $row1 = mysqli_fetch_assoc($result1);
     $pdf->Cell(30, 12, $row1["rollno"], 1, 0, "C");
@@ -125,12 +125,12 @@ if (isset($_POST['print'])) {
                     <tbody>
                       <?php
 
-                      $sql = "SELECT id,rollno,password from students where test_id = '$test_id' order by id ASC";
+                      $sql = "SELECT id,rollno,password from users where test_id = '$test_id' order by id ASC";
                       $result = mysqli_query($conn, $sql);
                       $i = 1;
                       while ($row = mysqli_fetch_assoc($result)) {
                         $rollno_id = $row["rollno"];
-                        $sql1 = "SELECT * from student_data where id = $rollno_id";
+                        $sql1 = "SELECT * from user_data where id = $rollno_id";
                         $result1 = mysqli_query($conn, $sql1);
                         $row1 = mysqli_fetch_assoc($result1);
                       ?>
