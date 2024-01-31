@@ -118,7 +118,7 @@
   $(document).ready(function() {
     $.ajax({
       type: 'POST',
-      url: 'get_classes.php',
+      url: 'get_batches.php',
       success: function(response) {
         response.counter = 'foo';
         var opts = $.parseJSON(response);

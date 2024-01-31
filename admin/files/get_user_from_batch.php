@@ -16,7 +16,7 @@ if (mysqli_num_rows($result) > 0) {
     echo "0 results";
 }
 
-$roll = "SELECT rollno FROM student_data where class_id = '" . $id . "' ";
+$roll = "SELECT rollno FROM user_data where batch_id = '" . $id . "' ";
 $re = mysqli_query($conn, $roll);
 $arr = array();
 $arr1 = array();
