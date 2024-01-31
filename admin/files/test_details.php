@@ -12,8 +12,8 @@ include '../../database/config.php';
 require_once('../assets/vendor/excel_reader2.php');
 require_once('../assets/vendor/SpreadsheetReader.php');
 
-$general_settings = false;
-$other_settings = false;
+$general_settings;
+$other_settings;
 
 if (isset($_POST['general_settings_update'])) {
   $test_id = $_POST['test_id'];
@@ -22,7 +22,7 @@ if (isset($_POST['general_settings_update'])) {
   $test_date = $_POST['test_date'];
   $total_questions = $_POST['total_questions'];
   $test_status = $_POST['test_status'];
-  $status_id = $class_id = -1;
+  $status_id = $batch_id = -1;
 
 
   //getting status id
@@ -60,7 +60,7 @@ if (isset($_POST['other_settings'])) {
   $random = generateRandomString($temp);
   $random = $random . $test_id;
 
-  $sql = "INSERT INTO student_data(rollno,class_id) values ($user_roll_no,null)";
+  $sql = "INSERT INTO student_data(rollno,batch_id) values ($user_roll_no,null)";
   $result = mysqli_query($conn, $sql);
   $roll_no_id = mysqli_insert_id($conn);
   if ($result) {
@@ -75,7 +75,7 @@ if (isset($_POST['other_settings'])) {
   }
 }
 
-$complete = false;
+$complete;
 
 if (isset($_POST['completed'])) {
   $test_id = $_POST['test_id'];
@@ -92,7 +92,7 @@ if (isset($_POST['completed'])) {
   }
 }
 
-$delete = false;
+// $delete; 
 
 if (isset($_POST['deleted'])) {
   $test_id = $_POST['test_id'];
@@ -103,14 +103,14 @@ if (isset($_POST['deleted'])) {
   $sql5 = "DELETE from score WHERE test_id = $test_id";
   $result5 = mysqli_query($conn, $sql5);
 
-  $sql4 = "SELECT rollno from students where test_id = $test_id";
+  $sql4 = "SELECT rollno from users where test_id = $test_id";
   $result4 = mysqli_query($conn, $sql4);
   while ($row4 = mysqli_fetch_assoc($result4)) {
     $rollno_id = $row4["rollno"];
-    $sql3 = "DELETE from student_data WHERE id = '$rollno_id' AND class_id IS NULL";
+    $sql3 = "DELETE from student_data WHERE id = '$rollno_id' AND batch_id IS NULL";
     $result3 = mysqli_query($conn, $sql3);
   }
-  $sql2 = "DELETE from students WHERE test_id = $test_id";
+  $sql2 = "DELETE from users WHERE test_id = $test_id";
   $result2 = mysqli_query($conn, $sql2);
   $sql = "DELETE from tests WHERE id = $test_id";
   $result = mysqli_query($conn, $sql);
@@ -121,18 +121,19 @@ if (isset($_POST['deleted'])) {
 
 if (isset($_POST['test_id'])) {
   $test_id = $_POST['test_id'];
+  echo $test_id;
   $sql = "SELECT * from tests where id = $test_id";
   $result = mysqli_query($conn, $sql);
   $test_details = mysqli_fetch_assoc($result);
   $status_id = $test_details["status_id"];
-  $class_id = $test_details["class_id"];
+  $batch_id = $test_details["batch_id"];
 
   $sql1 = "SELECT name from status where id = $status_id";
   $result1 = mysqli_query($conn, $sql1);
   $gen = mysqli_fetch_assoc($result1);
   $status = $gen["name"];
 
-  $sql2 = "SELECT name from classes where id = $class_id";
+  $sql2 = "SELECT name from batches where id = $batch_id";
   $result2 = mysqli_query($conn, $sql2);
   $gen1 = mysqli_fetch_assoc($result2);
   $class = $gen1["name"];
@@ -275,7 +276,7 @@ if (isset($_POST['test_id'])) {
                   </div>
 
                   <form id="form-deleted" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="hidden" name="deleted">
+                    <input type="hidden" name="deleted" value="true">
                     <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   </form>
 

@@ -11,7 +11,7 @@ if (isset($_POST['new_test'])) {
   $total_questions = $_POST['total_questions'];
   $test_status = $_POST['test_status'];
   $test_class = $_POST['test_class'];
-  $status_id = $class_id = -1;
+  $status_id = $batch_id = -1;
 
   //getting status id
   $status_sql = "SELECT id from status where name LIKE '%$test_status%'";
@@ -25,7 +25,7 @@ if (isset($_POST['new_test'])) {
   $class_result = mysqli_query($conn, $class_sql);
   if (mysqli_num_rows($class_result) > 0) {
     $class_row = mysqli_fetch_assoc($class_result);
-    $class_id = $class_row["id"];
+    $batch_id = $class_row["id"];
   }
 
   function generateRandomString($length = 8)
@@ -41,12 +41,12 @@ if (isset($_POST['new_test'])) {
 
   $teacher_id = $_SESSION["user_id"];
   //creating new test
-  $sql = "INSERT INTO tests(teacher_id, name, date, status_id, subject, total_questions,class_id) VALUES('$teacher_id','$test_name','$test_date','$status_id','$test_subject','$total_questions','$class_id')";
+  $sql = "INSERT INTO tests(teacher_id, name, date, status_id, subject, total_questions,batch_id) VALUES('$teacher_id','$test_name','$test_date','$status_id','$test_subject','$total_questions','$batch_id')";
   $result = mysqli_query($conn, $sql);
   $test_id = mysqli_insert_id($conn);
   if ($result) {
     //creating student entry in students table for the test
-    $sql1 = "select id from student_data where class_id = '$class_id'";
+    $sql1 = "select id from user_data where batch_id = '$batch_id'";
     $result1 = mysqli_query($conn, $sql1);
     $temp = 8 - strlen($test_id);
     while ($row1 = mysqli_fetch_assoc($result1)) {
@@ -173,7 +173,7 @@ if (isset($_POST['new_test'])) {
                               <option selected="true" value="" disabled="disabled">Select Batch for test</option>
                               <?php
 
-                              $sql = "select * from classes";
+                              $sql = "select * from batches";
                               $result = mysqli_query($conn, $sql);
                               while ($row = mysqli_fetch_assoc($result)) {
                               ?>

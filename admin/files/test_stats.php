@@ -93,12 +93,12 @@ $name = $_POST['test_name'];
                     </thead>
                     <tbody>
                       <?php
-                      $sql = "select * from students where test_id = $test_id";
+                      $sql = "select * from users where test_id = $test_id";
                       $result = mysqli_query($conn, $sql);
                       $i = 1;
                       while ($row = mysqli_fetch_assoc($result)) {
                         $roll_no = $row["rollno"];
-                        $sql1 = "select rollno from student_data where id = '$roll_no'";
+                        $sql1 = "select rollno from user_data where id = '$roll_no'";
                         $result1 = mysqli_query($conn, $sql1);
                         $row1 = mysqli_fetch_assoc($result1);
                       ?>
