@@ -21,7 +21,7 @@ if (isset($_POST['new_test'])) {
     $status_id = $status_row["id"];
   }
   //getting class id
-  $class_sql = "SELECT id from classes where name LIKE '%$test_class%'";
+  $class_sql = "SELECT id from batches where name LIKE '%$test_class%'";
   $class_result = mysqli_query($conn, $class_sql);
   if (mysqli_num_rows($class_result) > 0) {
     $class_row = mysqli_fetch_assoc($class_result);
@@ -51,9 +51,9 @@ if (isset($_POST['new_test'])) {
     $temp = 8 - strlen($test_id);
     while ($row1 = mysqli_fetch_assoc($result1)) {
       $rollno = $row1["id"];
-      $random = generateRandomString($temp);
-      $random = $random . $test_id;
-      $sql2 = "INSERT INTO students(test_id,rollno,password,score,status) VALUES ('$test_id','$rollno','$random',0,0)";
+      // $random = generateRandomString($temp);
+      // $random = $random . $test_id;
+      $sql2 = "INSERT INTO students(test_id,rollno,password,score,status) VALUES ('$test_id','$rollno','$rollno',0,0)";
       $result2 = mysqli_query($conn, $sql2);
       if ($result2) {
         header("Location:dashboard.php");

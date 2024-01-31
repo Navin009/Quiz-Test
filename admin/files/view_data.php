@@ -132,9 +132,9 @@
   function populateTable() {
     $.ajax({
       type: 'POST',
-      url: 'get_student_from_class.php',
+      url: 'get_user_from_class.php',
       data: {
-        'class_name': $('#options option:selected').val(),
+        'batch_name': $('#options option:selected').val(),
       },
       datatype: 'json',
       success: function(response) {

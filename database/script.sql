@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classes`
+-- Table structure for table `batches`
 --
 
-CREATE TABLE `classes` (
+CREATE TABLE `batches` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `classes` (
 -- Table structure for table `Questions`
 --
 
-CREATE TABLE `Questions` (
+CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `optionA` varchar(255) NOT NULL,
@@ -97,10 +97,10 @@ INSERT INTO `status` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `students` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `test_id` int(11) NOT NULL,
   `rollno` int(11) NOT NULL,
@@ -112,13 +112,13 @@ CREATE TABLE `students` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_data`
+-- Table structure for table `user_data`
 --
 
-CREATE TABLE `student_data` (
+CREATE TABLE `user_data` (
   `id` int(11) NOT NULL,
   `rollno` bigint(20) NOT NULL,
-  `class_id` int(11) DEFAULT NULL
+  `batch_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -154,7 +154,7 @@ CREATE TABLE `tests` (
   `status_id` int(11) NOT NULL,
   `subject` varchar(255) NOT NULL,
   `total_questions` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL
+  `batch_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -162,15 +162,15 @@ CREATE TABLE `tests` (
 --
 
 --
--- Indexes for table `classes`
+-- Indexes for table `batches`
 --
-ALTER TABLE `classes`
+ALTER TABLE `batches`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `Questions`
 --
-ALTER TABLE `Questions`
+ALTER TABLE `questions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -195,19 +195,19 @@ ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students`
+-- Indexes for table `users`
 --
-ALTER TABLE `students`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `students_fk0` (`test_id`),
-  ADD KEY `students_fk1` (`rollno`);
+  ADD KEY `users_fk0` (`test_id`),
+  ADD KEY `users_fk1` (`rollno`);
 
 --
--- Indexes for table `student_data`
+-- Indexes for table `user_data`
 --
-ALTER TABLE `student_data`
+ALTER TABLE `user_data`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `student_data_fk0` (`class_id`);
+  ADD KEY `user_data_fk0` (`batch_id`);
 
 --
 -- Indexes for table `teachers`
@@ -222,22 +222,22 @@ ALTER TABLE `tests`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tests_fk0` (`teacher_id`),
   ADD KEY `tests_fk1` (`status_id`),
-  ADD KEY `tests_fk2` (`class_id`);
+  ADD KEY `tests_fk2` (`batch_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `classes`
+-- AUTO_INCREMENT for table `batches`
 --
-ALTER TABLE `classes`
+ALTER TABLE `batches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `Questions`
 --
-ALTER TABLE `Questions`
+ALTER TABLE `questions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -253,15 +253,15 @@ ALTER TABLE `status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `students`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `students`
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `student_data`
+-- AUTO_INCREMENT for table `user_data`
 --
-ALTER TABLE `student_data`
+ALTER TABLE `user_data`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -284,7 +284,7 @@ ALTER TABLE `tests`
 -- Constraints for table `question_test_mapping`
 --
 ALTER TABLE `question_test_mapping`
-  ADD CONSTRAINT `question_test_mapping_fk0` FOREIGN KEY (`question_id`) REFERENCES `Questions` (`id`),
+  ADD CONSTRAINT `question_test_mapping_fk0` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`),
   ADD CONSTRAINT `question_test_mapping_fk1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`);
 
 --
@@ -292,20 +292,20 @@ ALTER TABLE `question_test_mapping`
 --
 ALTER TABLE `score`
   ADD CONSTRAINT `score_fk0` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
-  ADD CONSTRAINT `score_fk1` FOREIGN KEY (`question_id`) REFERENCES `Questions` (`id`);
+  ADD CONSTRAINT `score_fk1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`);
 
 --
--- Constraints for table `students`
+-- Constraints for table `users`
 --
-ALTER TABLE `students`
-  ADD CONSTRAINT `students_fk0` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
-  ADD CONSTRAINT `students_fk1` FOREIGN KEY (`rollno`) REFERENCES `student_data` (`id`);
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_fk0` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
+  ADD CONSTRAINT `users_fk1` FOREIGN KEY (`rollno`) REFERENCES `user_data` (`id`);
 
 --
--- Constraints for table `student_data`
+-- Constraints for table `user_data`
 --
-ALTER TABLE `student_data`
-  ADD CONSTRAINT `student_data_fk0` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`);
+ALTER TABLE `user_data`
+  ADD CONSTRAINT `user_data_fk0` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`);
 
 --
 -- Constraints for table `tests`
@@ -313,7 +313,7 @@ ALTER TABLE `student_data`
 ALTER TABLE `tests`
   ADD CONSTRAINT `tests_fk0` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
   ADD CONSTRAINT `tests_fk1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
-  ADD CONSTRAINT `tests_fk2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`);
+  ADD CONSTRAINT `tests_fk2` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -53,14 +53,14 @@ function generateRandomString($length = 8)
 
 if (isset($_POST['other_settings'])) {
   $test_id = $_POST['test_id'];
-  $student_roll_no = $_POST['student_roll_no'];
+  $user_roll_no = $_POST['user_roll_no'];
   $other_settings = false;
 
   $temp = 8 - strlen($test_id);
   $random = generateRandomString($temp);
   $random = $random . $test_id;
 
-  $sql = "INSERT INTO student_data(rollno,class_id) values ($student_roll_no,null)";
+  $sql = "INSERT INTO student_data(rollno,class_id) values ($user_roll_no,null)";
   $result = mysqli_query($conn, $sql);
   $roll_no_id = mysqli_insert_id($conn);
   if ($result) {
@@ -286,14 +286,14 @@ if (isset($_POST['test_id'])) {
                   </div>
                 </div>
 
-                <form id="form-student-data" method="POST" action="student_test_credentials.php">
+                <form id="form-student-data" method="POST" action="user_test_credentials.php">
                   <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                 </form>
 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <button class="btn btn-primary btn-block" onclick="student_data()">GET STUDENT DATA</button>
+                      <button class="btn btn-primary btn-block" onclick="student_data()">GET USER DATA</button>
                     </div>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ if (isset($_POST['test_id'])) {
                   <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   <div class="form-group" style="margin-top:10px;">
                     <label>Add guest user to test</label>
-                    <input type="text" class="form-control" name="student_roll_no" placeholder="User Army number" />
+                    <input type="text" class="form-control" name="user_roll_no" placeholder="User Army number" />
                   </div>
 
                   <div class="row center-element">

@@ -2,7 +2,7 @@
 $id;
 include "../../database/config.php";
 
-$classes = "SELECT id FROM classes where name = '" . $_POST['class_name'] . "' ";
+$batches = "SELECT id FROM batches where name = '" . $_POST['batch_name'] . "' ";
 $result = mysqli_query($conn, $classes);
 
 if (mysqli_num_rows($result) > 0) {
@@ -11,7 +11,7 @@ if (mysqli_num_rows($result) > 0) {
         $id  = $row['id'];
     }
 
-    $sql = "INSERT INTO student_data (rollno, class_id) VALUES ('" . $_POST['extra_roll_number'] . "', $id)";
+    $sql = "INSERT INTO user_data (rollno, class_id) VALUES ('" . $_POST['extra_roll_number'] . "', $id)";
 
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";

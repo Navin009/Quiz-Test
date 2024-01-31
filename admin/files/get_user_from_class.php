@@ -4,7 +4,7 @@ $roll_numbers;
 $counter = 0;
 include "../../database/config.php";
 
-$classes = "SELECT id FROM classes where name = '" . $_POST['class_name'] . "' limit 1 ";
+$classes = "SELECT id FROM batches where name = '" . $_POST['batch_name'] . "' order by id desc limit 1 ";
 $result = mysqli_query($conn, $classes);
 
 if (mysqli_num_rows($result) > 0) {

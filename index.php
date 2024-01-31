@@ -70,7 +70,7 @@ if (isset($_SESSION['test_ongoing']))
 						</span>
 
 						<div class="wrap-input100 validate-input">
-							<input class="input100" id="studentRollNumber" type="text" name="rollNumber" placeholder="Army Number" required>
+							<input class="input100" id="userArmyNumber" type="text" name="rollNumber" placeholder="Army Number" required>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -79,7 +79,7 @@ if (isset($_SESSION['test_ongoing']))
 						<span class="error text-danger" id="empty_roll_number_field"> </span>
 
 						<div class="wrap-input100 validate-input">
-							<input class="input100" id="studentPassword" type="password" name="password" placeholder="Password" required>
+							<input class="input100" id="userPassword" type="password" name="password" placeholder="Password" required>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
@@ -117,17 +117,18 @@ if (isset($_SESSION['test_ongoing']))
 		})
 
 		function login() {
+			alert("Please wait while we are checking your credentials");
 			var someFieldIsEmpty = false;
 
-			var studentRollNumber = document.getElementById('studentRollNumber').value;
-			var studentPassword = document.getElementById('studentPassword').value;
+			var userArmyNumber = document.getElementById('userArmyNumber').value;
+			var userPassword = document.getElementById('userPassword').value;
 
-			if (!studentRollNumber) {
+			if (!userArmyNumber) {
 				someFieldIsEmpty = true;
 				document.getElementById('empty_roll_number_field').innerHTML = "Please enter your Army number";
 			}
 
-			if (!studentPassword) {
+			if (!userPassword) {
 				someFieldIsEmpty = true;
 				document.getElementById('empty_roll_passsword_field').innerHTML = "Please enter your password";
 			}
@@ -137,14 +138,16 @@ if (isset($_SESSION['test_ongoing']))
 					type: 'POST',
 					url: 'files/student_login.php',
 					data: {
-						'rollNumber': $('#studentRollNumber').val(),
-						'password': $('#studentPassword').val(),
+						'rollNumber': $('#userArmyNumber').val(),
+						'password': $('#userPassword').val(),
 					},
 					success: function(response) {
-						if (response == "STUDENT_RECORD_NOT_FOUND")
+						console.log(response);
+						if (response == "STUDENT_RECORD_NOT_FOUND") {
 							alert("Wrong Credentails entered");
-						else
+						} else {
 							window.location.replace("files/dashboard.php");
+						}
 					}
 				});
 			}

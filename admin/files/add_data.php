@@ -64,33 +64,23 @@ if (!isset($_SESSION["user_id"]))
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Create New Batch Data</h5>
+                <h5 class="title">Create New Batch</h5>
               </div>
               <div class="card-body">
                 <input type="hidden" name="general_settings">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Batch No</label>
-                      <input type="text" class="form-control" id="class_name" name="site_name" placeholder="Batch No" />
-                      <span id="class_name_error" class="error text-danger"></span>
+                      <label>Batch Name</label>
+                      <input type="text" class="form-control" id="batch_name" name="site_name" placeholder="Batch Name" />
+                      <span id="batch_name_error" class="error text-danger"></span>
                     </div>
-                    <!-- <div class="form-group">
-                      <label>Starting Army number</label>
-                      <input type="text" class="form-control" id="starting_roll_number" name="site_name" placeholder="Starting Army number" />
-                      <span id="starting_roll_error" class="error text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                      <label>Ending Army number</label>
-                      <input type="text" class="form-control" id="ending_roll_number" name="site_name" placeholder="Ending Army number" />
-                      <span id="ending_roll_error" class="error text-danger"></span>
-                    </div> -->
                   </div>
                 </div>
                 <div class="row center-element">
                   <div class="col-md-8">
                     <div class="form-group"><br />
-                      <button class="btn btn-primary btn-block btn-round" onclick='createNewClass()'>CREATE</button>
+                      <button class="btn btn-primary btn-block btn-round" onclick='createNewBatch()'>CREATE</button>
                     </div>
                   </div>
                 </div>
@@ -107,7 +97,7 @@ if (!isset($_SESSION["user_id"]))
                 <input type="hidden" name="general_settings">
                 <div class="row">
                   <div class="col-md-12">
-                    <select id="options" name="class_option" class="btn-round" required style="width:100%;">
+                    <select id="options" name="batch_option" class="btn-round" required style="width:100%;">
                       <option selected="true" value="" disabled="disabled">Select Batch for test</option>
                     </select>
                     <span id="extra_roll_class_error" class="error text-danger"></span>
@@ -122,24 +112,24 @@ if (!isset($_SESSION["user_id"]))
                 <div class="row center-element">
                   <div class="col-md-8">
                     <div class="form-group"><br />
-                      <button class="btn btn-primary btn-block" onclick='addStudent()'>ADD</button>
+                      <button class="btn btn-primary btn-block" onclick='addUser()'>ADD</button>
                     </div>
                   </div>
                 </div>
                 <!-- </form> -->
               </div>
-            </div>
+            </div>  
           </div>
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Add User</h5>
+                <h5 class="title">Upload User</h5>
               </div>
               <div class="card-body">
                 <input type="hidden" name="general_settings">
                 <div class="row">
                   <div class="col-md-12">
-                    <select id="options" name="class_option" class="btn-round" required style="width:100%;">
+                    <select id="options" name="batch_option" class="btn-round" required style="width:100%;">
                       <option selected="true" value="" disabled="disabled">Select Batch for test</option>
                     </select>
                     <span id="extra_roll_class_error" class="error text-danger"></span>
@@ -154,7 +144,7 @@ if (!isset($_SESSION["user_id"]))
                 <div class="row center-element">
                   <div class="col-md-8">
                     <div class="form-group"><br />
-                      <button class="btn btn-primary btn-block" onclick='addStudent()'>ADD</button>
+                      <button class="btn btn-primary btn-block" onclick='addUser()'>ADD</button>
                     </div>
                   </div>
                 </div>
@@ -184,7 +174,7 @@ if (!isset($_SESSION["user_id"]))
     $(document).ready(function() {
       $.ajax({
         type: 'POST',
-        url: 'get_classes.php',
+        url: 'get_batches.php',
         success: function(response) {
           var opts = $.parseJSON(response);
           $.each(opts, function(i, d) {
@@ -194,31 +184,11 @@ if (!isset($_SESSION["user_id"]))
       });
     });
 
-    function createNewClass() {
+    function createNewBatch() {
       var someValidationFailed = false;
 
-      if (!$('#class_name').val()) {
-        $('#class_name_error').html("Please enter Class Name");
-        someValidationFailed = true;
-      }
-
-      if (!$('#starting_roll_number').val()) {
-        $('#starting_roll_error').html("Please enter Starting roll number");
-        someValidationFailed = true;
-      }
-
-      if ($('#starting_roll_number').val() && !$.isNumeric($('#starting_roll_number').val())) {
-        $('#starting_roll_error').html("Please enter a valid Starting roll number");
-        someValidationFailed = true;
-      }
-
-      if (!$('#ending_roll_number').val()) {
-        $('#ending_roll_error').html("Please enter Ending roll number");
-        someValidationFailed = true;
-      }
-
-      if ($('#ending_roll_number').val() && !$.isNumeric($('#ending_roll_number').val())) {
-        $('#ending_roll_error').html("Please enter a valid Ending roll number");
+      if (!$('#batch_name').val()) {
+        $('#batch_name_error').html("Please enter Batch Name");
         someValidationFailed = true;
       }
 
@@ -226,11 +196,9 @@ if (!isset($_SESSION["user_id"]))
 
         $.ajax({
           type: 'POST',
-          url: 'add_new_class.php',
+          url: 'add_new_batch.php',
           data: {
-            'class_name': $('#class_name').val(),
-            'starting_roll_number': $('#starting_roll_number').val(),
-            'ending_roll_number': $('#ending_roll_number').val()
+            'batch_name': $('#batch_name').val()
           },
           success: function(response) {
             alert(response);
@@ -239,16 +207,16 @@ if (!isset($_SESSION["user_id"]))
       }
     }
 
-    function addStudent() {
+    function addUser() {
       var someValidationFailed = false;
 
       if (!$('#options').val()) {
-        $('#extra_roll_class_error').html("Please select class");
+        $('#extra_roll_class_error').html("Please select Batch");
         someValidationFailed = true;
       }
 
       if (!$('#extra_roll_number').val()) {
-        $('#extra_roll_error').html("Please enter the Roll number");
+        $('#extra_roll_error').html("Please enter the Army number");
         someValidationFailed = true;
       }
 
@@ -260,9 +228,9 @@ if (!isset($_SESSION["user_id"]))
       if (!someValidationFailed) {
         $.ajax({
           type: 'POST',
-          url: 'add_extra_student.php',
+          url: 'add_extra_user.php',
           data: {
-            'class_name': $('#options').val(),
+            'batch_name': $('#options').val(),
             'extra_roll_number': $('#extra_roll_number').val(),
           },
           success: function(response) {

@@ -2,8 +2,8 @@
 $info;
 include "../../database/config.php";
 
-$classes = "SELECT name FROM classes ";
-$result = mysqli_query($conn, $classes);
+$batches = "SELECT name FROM batches ";
+$result = mysqli_query($conn, $batches);
 
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
