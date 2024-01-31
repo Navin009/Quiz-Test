@@ -78,19 +78,18 @@
                 </div>
               </div>
               <div class="card-body">
-                <!-- <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"> -->
-                <input type="hidden" name="general_settings" />
-                <!-- table contact_table table-striped table-bordered -->
-
-                <table id="roll_numbers_table">
-                  <thead>
-                    <tr>
-                      <th data-field="id">ID</th>
-                      <th data-field="rollno">Army Number</th>
-                    </tr>
-                  </thead>
-                </table>
-                <!-- </form> -->
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                  <input type="hidden" name="general_settings" />
+                  <!-- table contact_table table-striped table-bordered -->
+                  <table id="roll_numbers_table">
+                    <thead>
+                      <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="rollno">Army Number</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </form>
               </div>
             </div>
           </div>
@@ -138,6 +137,7 @@
       },
       datatype: 'json',
       success: function(response) {
+        alert(jsondata);
         var jsondata = JSON.parse(response);
         $('#roll_numbers_table').bootstrapTable({
           data: jsondata,
