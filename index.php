@@ -117,7 +117,6 @@ if (isset($_SESSION['test_ongoing']))
 		})
 
 		function login() {
-			alert("Please wait while we are checking your credentials");
 			var someFieldIsEmpty = false;
 
 			var userArmyNumber = document.getElementById('userArmyNumber').value;
@@ -143,16 +142,19 @@ if (isset($_SESSION['test_ongoing']))
 					},
 					success: function(response) {
 						console.log(response);
-						if (response == "STUDENT_RECORD_NOT_FOUND") {
-							alert("Wrong Credentails entered");
-						} else {
+						if (response == "CREDS_OK") {
 							window.location.replace("files/dashboard.php");
+						} else {
+							alert("Wrong Credentails entered");
 						}
 					}
 				});
 			}
 		}
 	</script>
+	<div>
+		ok
+	</div>
 </body>
 
 </html>

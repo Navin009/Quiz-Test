@@ -31,7 +31,8 @@ if (isset($_SESSION['test_ongoing']))
             <div class="wrap_header">
                 <!-- Logo -->
                 <a href="../index.php" class="logo">
-                    <img src="../images/icons/logo.png" alt="IMG-LOGO">
+                    <!-- <img src="../images/icons/logo.png" alt="IMG-LOGO"> -->
+                    <h3 class="logo-style">Online Test System <span>
                 </a>
 
                 <!-- Header Icon -->
@@ -80,7 +81,9 @@ if (isset($_SESSION['test_ongoing']))
                                                                 <p id="test_name"></p>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <a href="quiz.php"><button type="button" class="btn btn-success" style="float:right;">Start Test</button></a>
+                                                                <a href="quiz.php">
+                                                                    <button type="button" class="btn btn-success" style="float:right;">Start Test</button>
+                                                                </a>
                                                             </div>
                                                         </div>
 
@@ -151,6 +154,7 @@ if (isset($_SESSION['test_ongoing']))
 
         function createCard(array $row)
         { ?>
+
         <?php } ?>
     </script>
 </body>
