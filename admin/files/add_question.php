@@ -82,7 +82,7 @@ if (!isset($_SESSION["user_id"]))
         echo "<script>console.log('" . $score . "');</script>";
 
 
-        $sql = "INSERT INTO Questions(title,optionA,optionB,optionC,optionD,correctAns,score) values('$title','$op_a','$op_b','$op_c','$op_d','$op_correct_text','$score')";
+        $sql = "INSERT INTO questions(title,optionA,optionB,optionC,optionD,correctAns,score) values('$title','$op_a','$op_b','$op_c','$op_d','$op_correct_text','$score')";
         $result = mysqli_query($conn, $sql);
         echo "<script>console.log('done 1');</script>";
         if ($result) {
