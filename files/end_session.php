@@ -6,7 +6,7 @@ $student_data = json_decode($temp);
 
 foreach ($student_data as $obj) {
     $student_id = $obj->id;
-    $sql1 = "UPDATE students set status = 1 where id = '$student_id'";
+    $sql1 = "UPDATE users set status = 1 where id = '$student_id'";
     mysqli_query($conn, $sql1);
 }
 

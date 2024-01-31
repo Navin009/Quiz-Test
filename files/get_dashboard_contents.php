@@ -6,7 +6,6 @@ $testName = "";
 if (isset($_SESSION['student_details'])) {
     $data = $_SESSION['student_details'];
     $student_data = json_decode($data);
-    echo $_SESSION['student_details'];
 
     foreach ($student_data as $obj) {
         $result = mysqli_query($conn, "select * from tests where id = '" . $obj->test_id . "' and status_id IN (2)");
@@ -17,7 +16,6 @@ if (isset($_SESSION['student_details'])) {
             }
         }
     }
-
     echo $testName;
 } else {
     echo "Not Found";

@@ -31,7 +31,6 @@ if (isset($_SESSION['test_ongoing']))
             <div class="wrap_header">
                 <!-- Logo -->
                 <a href="../index.php" class="logo">
-                    <!-- <img src="../images/icons/logo.png" alt="IMG-LOGO"> -->
                     <h3 class="logo-style">Online Test System <span>
                 </a>
 
@@ -111,9 +110,6 @@ if (isset($_SESSION['test_ongoing']))
                 type: 'POST',
                 url: 'get_dashboard_contents.php',
                 success: function(response) {
-                    console.log('hi');
-                    console.log(response);
-                    console.log(response.length);
                     if (response.length > 0) {
                         console.log('not');
                         var temp = document.getElementById('row');
@@ -142,16 +138,6 @@ if (isset($_SESSION['test_ongoing']))
         }
 
         <?php
-        // session_start();
-
-        if ($_SESSION['test_ongoing']  == "true") {
-            echo "Test Ongoing";
-            header("Location: quiz.php");
-        } else if (!isset($_SESSION['student_details'])) {
-            echo "You are not logged in";
-            header("Location: ../index.php");
-        }
-
         function createCard(array $row)
         { ?>
 

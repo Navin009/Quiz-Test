@@ -35,11 +35,11 @@ if (!$conn) {
 function getQuestion($conn, $isFirst)
 {
     if ($isFirst == true) {
-        $question = mysqli_query($conn, "Select id, title, optionA, optionB, optionC, optionD, score from Questions where id = '" . $_SESSION['question_IDS_fetched'][0]['question_id'] . "' ");
+        $question = mysqli_query($conn, "Select id, title, optionA, optionB, optionC, optionD, score from questions where id = '" . $_SESSION['question_IDS_fetched'][0]['question_id'] . "' ");
         $_SESSION['question_counter']++;
         fetchAndReturnQuestion($question);
     } else {
-        $question = mysqli_query($conn, "Select id, title, optionA, optionB, optionC, optionD, score from Questions where id = '" . $_SESSION['question_IDS_fetched'][$_SESSION['question_counter']]['question_id'] . "' ");
+        $question = mysqli_query($conn, "Select id, title, optionA, optionB, optionC, optionD, score from questions where id = '" . $_SESSION['question_IDS_fetched'][$_SESSION['question_counter']]['question_id'] . "' ");
         $_SESSION['question_counter']++;
         fetchAndReturnQuestion($question);
     }
