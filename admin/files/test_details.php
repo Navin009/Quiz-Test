@@ -1,7 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION["user_id"]))
+if (!isset($_SESSION["user_id"])) {
   header("Location:../index.php");
+}
 ?>
 <?php
 error_reporting(E_ALL ^ E_DEPRECATED);
@@ -11,6 +12,9 @@ include '../../database/config.php';
 require_once('../assets/vendor/excel_reader2.php');
 require_once('../assets/vendor/SpreadsheetReader.php');
 
+$general_settings = false;
+$other_settings = false;
+
 if (isset($_POST['general_settings_update'])) {
   $test_id = $_POST['test_id'];
   $test_name = $_POST['test_name'];
@@ -19,7 +23,7 @@ if (isset($_POST['general_settings_update'])) {
   $total_questions = $_POST['total_questions'];
   $test_status = $_POST['test_status'];
   $status_id = $class_id = -1;
-  $general_settings = false;
+
 
   //getting status id
   $status_sql = "SELECT id from status where name LIKE '%$test_status%'";
@@ -71,6 +75,8 @@ if (isset($_POST['other_settings'])) {
   }
 }
 
+$complete = false;
+
 if (isset($_POST['completed'])) {
   $test_id = $_POST['test_id'];
   $complete_id = -1;
@@ -85,6 +91,8 @@ if (isset($_POST['completed'])) {
     $complete = true;
   }
 }
+
+$delete = false;
 
 if (isset($_POST['deleted'])) {
   $test_id = $_POST['test_id'];
@@ -199,7 +207,7 @@ if (isset($_POST['test_id'])) {
               </div>
               <div class="card-body">
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                  <input type="hidden" name="general_settings_update">
+                  <input type="hidden" name="general_settings_update" value="<?= true ?>">
                   <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   <div class="row">
                     <div class="col-md-12">
@@ -228,9 +236,7 @@ if (isset($_POST['test_id'])) {
                           $result = mysqli_query($conn, $sql);
                           while ($row = mysqli_fetch_assoc($result)) {
                           ?>
-
                             <option value="<?= $row["name"]; ?>" <?php if ($status == $row["name"]) echo "selected"; ?>><?= $row["name"]; ?></option>
-
                           <?php
                           }
                           ?>
@@ -293,11 +299,11 @@ if (isset($_POST['test_id'])) {
                 </div>
 
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                  <input type="hidden" name="other_settings">
+                  <input type="hidden" name="other_settings" value="true">
                   <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   <div class="form-group" style="margin-top:10px;">
-                    <label>Add guest student to test</label>
-                    <input type="text" class="form-control" name="student_roll_no" placeholder="Student Roll number" />
+                    <label>Add guest user to test</label>
+                    <input type="text" class="form-control" name="student_roll_no" placeholder="User Army number" />
                   </div>
 
                   <div class="row center-element">
@@ -328,7 +334,6 @@ if (isset($_POST['test_id'])) {
                   <div class="col-md-4">
                     <button class="btn btn-primary btn-block btn-round" data-toggle="modal" data-target="#exampleModal" style="margin-top:0px;width:200px !important;float:right !important;">UPLOAD</button>
                   </div>
-
                   <div class="col-md-4">
                     <button class="btn btn-primary btn-block btn-round" onclick="redirect_to_add_question()" style="margin-top:0px;width:200px !important;float:right !important;">ADD NEW QUESTION</button>
                   </div>
@@ -469,6 +474,7 @@ if (isset($_POST['test_id'])) {
       });
     }
   </script>
+
   <?php
   //Checking if general settings updated successfully
   if ($general_settings == "true") {

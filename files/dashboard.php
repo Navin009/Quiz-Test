@@ -139,7 +139,7 @@ if (isset($_SESSION['test_ongoing']))
         }
 
         <?php
-        session_start();
+        // session_start();
 
         if ($_SESSION['test_ongoing']  == "true") {
             echo "Test Ongoing";

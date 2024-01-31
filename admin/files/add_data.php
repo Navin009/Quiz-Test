@@ -64,7 +64,7 @@ if (!isset($_SESSION["user_id"]))
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">Add New Batch Data</h5>
+                <h5 class="title">Create New Batch Data</h5>
               </div>
               <div class="card-body">
                 <input type="hidden" name="general_settings">
@@ -75,7 +75,7 @@ if (!isset($_SESSION["user_id"]))
                       <input type="text" class="form-control" id="class_name" name="site_name" placeholder="Batch No" />
                       <span id="class_name_error" class="error text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label>Starting Army number</label>
                       <input type="text" class="form-control" id="starting_roll_number" name="site_name" placeholder="Starting Army number" />
                       <span id="starting_roll_error" class="error text-danger"></span>
@@ -84,13 +84,45 @@ if (!isset($_SESSION["user_id"]))
                       <label>Ending Army number</label>
                       <input type="text" class="form-control" id="ending_roll_number" name="site_name" placeholder="Ending Army number" />
                       <span id="ending_roll_error" class="error text-danger"></span>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="row center-element">
                   <div class="col-md-8">
                     <div class="form-group"><br />
                       <button class="btn btn-primary btn-block btn-round" onclick='createNewClass()'>CREATE</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- </form> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Add User</h5>
+              </div>
+              <div class="card-body">
+                <input type="hidden" name="general_settings">
+                <div class="row">
+                  <div class="col-md-12">
+                    <select id="options" name="class_option" class="btn-round" required style="width:100%;">
+                      <option selected="true" value="" disabled="disabled">Select Batch for test</option>
+                    </select>
+                    <span id="extra_roll_class_error" class="error text-danger"></span>
+
+                    <div class="form-group" style="margin-top:10px;">
+                      <label>User Army number</label>
+                      <input type="text" class="form-control" id="extra_roll_number" name="site_name" placeholder="User Army number" />
+                      <span id="extra_roll_error" class="error text-danger"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row center-element">
+                  <div class="col-md-8">
+                    <div class="form-group"><br />
+                      <button class="btn btn-primary btn-block" onclick='addStudent()'>ADD</button>
                     </div>
                   </div>
                 </div>
