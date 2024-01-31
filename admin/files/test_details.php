@@ -12,8 +12,8 @@ include '../../database/config.php';
 require_once('../assets/vendor/excel_reader2.php');
 require_once('../assets/vendor/SpreadsheetReader.php');
 
-$general_settings;
-$other_settings;
+$general_settings = false;
+$other_settings = false;
 
 if (isset($_POST['general_settings_update'])) {
   $test_id = $_POST['test_id'];
@@ -75,7 +75,7 @@ if (isset($_POST['other_settings'])) {
   }
 }
 
-$complete;
+$complete = false;
 
 if (isset($_POST['completed'])) {
   $test_id = $_POST['test_id'];
@@ -92,10 +92,11 @@ if (isset($_POST['completed'])) {
   }
 }
 
-// $delete; 
+$delete = false;
 
 if (isset($_POST['deleted'])) {
   $test_id = $_POST['test_id'];
+  echo $test_id;
   $delete = false;
   $sql1 = "DELETE from question_test_mapping WHERE test_id = $test_id";
   $result1 = mysqli_query($conn, $sql1);
@@ -107,7 +108,7 @@ if (isset($_POST['deleted'])) {
   $result4 = mysqli_query($conn, $sql4);
   while ($row4 = mysqli_fetch_assoc($result4)) {
     $rollno_id = $row4["rollno"];
-    $sql3 = "DELETE from student_data WHERE id = '$rollno_id' AND batch_id IS NULL";
+    $sql3 = "DELETE from user_data WHERE id = '$rollno_id' AND batch_id IS NULL";
     $result3 = mysqli_query($conn, $sql3);
   }
   $sql2 = "DELETE from users WHERE test_id = $test_id";
@@ -115,18 +116,18 @@ if (isset($_POST['deleted'])) {
   $sql = "DELETE from tests WHERE id = $test_id";
   $result = mysqli_query($conn, $sql);
   if ($result) {
+    header("Location:../files/dashboard.php");
     $delete = true;
   }
 }
 
-if (isset($_POST['test_id'])) {
+if (isset($_POST['test_id']) && $delete == false) {
   $test_id = $_POST['test_id'];
-  echo $test_id;
   $sql = "SELECT * from tests where id = $test_id";
   $result = mysqli_query($conn, $sql);
   $test_details = mysqli_fetch_assoc($result);
-  $status_id = $test_details["status_id"];
-  $batch_id = $test_details["batch_id"];
+  $status_id = $test_details['status_id'];
+  $batch_id = $test_details['batch_id'];
 
   $sql1 = "SELECT name from status where id = $status_id";
   $result1 = mysqli_query($conn, $sql1);
@@ -276,7 +277,7 @@ if (isset($_POST['test_id'])) {
                   </div>
 
                   <form id="form-deleted" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="hidden" name="deleted" value="true">
+                    <input type="hidden" name="deleted">
                     <input type="hidden" name="test_id" value="<?= $test_id; ?>">
                   </form>
 
