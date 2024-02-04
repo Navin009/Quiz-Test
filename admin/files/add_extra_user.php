@@ -11,7 +11,7 @@ if (mysqli_num_rows($result) > 0) {
         $id  = $row['id'];
     }
 
-    $sql = "INSERT INTO user_data (rollno, class_id) VALUES ('" . $_POST['extra_roll_number'] . "', $id)";
+    $sql = "INSERT INTO user_data (rollno, batch_id) VALUES ('" . $_POST['extra_roll_number'] . "', $id)";
 
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";

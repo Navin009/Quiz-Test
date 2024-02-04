@@ -70,7 +70,7 @@ if (isset($_SESSION["user_id"]))
                       <div class="form-group">
                         <div id="result"></div>
                       </div>
-                    </div>
+                    </div>  
                   </div>
                 </form>
               </div>

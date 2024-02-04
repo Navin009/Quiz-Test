@@ -45,20 +45,7 @@ if (isset($_POST['new_test'])) {
   $result = mysqli_query($conn, $sql);
   $test_id = mysqli_insert_id($conn);
   if ($result) {
-    //creating student entry in students table for the test
-    $sql1 = "select id from user_data where batch_id = '$batch_id'";
-    $result1 = mysqli_query($conn, $sql1);
-    $temp = 8 - strlen($test_id);
-    while ($row1 = mysqli_fetch_assoc($result1)) {
-      $rollno = $row1["id"];
-      // $random = generateRandomString($temp);
-      // $random = $random . $test_id;
-      $sql2 = "INSERT INTO students(test_id,rollno,password,score,status) VALUES ('$test_id','$rollno','$rollno',0,0)";
-      $result2 = mysqli_query($conn, $sql2);
-      if ($result2) {
-        header("Location:dashboard.php");
-      }
-    }
+    header("Location:dashboard.php");
   }
 }
 ?>

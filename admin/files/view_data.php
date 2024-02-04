@@ -137,7 +137,6 @@
       },
       datatype: 'json',
       success: function(response) {
-        alert(jsondata);
         var jsondata = JSON.parse(response);
         $('#roll_numbers_table').bootstrapTable({
           data: jsondata,

@@ -60,7 +60,16 @@ if (isset($_POST['other_settings'])) {
   $random = generateRandomString($temp);
   $random = $random . $test_id;
 
-  $sql = "INSERT INTO user_data(rollno,batch_id) values ($user_roll_no,null)";
+  $batch_id = -1;
+
+  $sql = "SELECT id from batch where name LIKE '%$random%'";
+  $result = mysqli_query($conn, $sql);
+  if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $batch_id = $row["id"];
+  }
+
+  $sql = "INSERT INTO user_data(rollno,batch_id) values ($user_roll_no, $batch_id)";
   $result = mysqli_query($conn, $sql);
   $roll_no_id = mysqli_insert_id($conn);
   if ($result) {
